@@ -1,0 +1,64 @@
+/* Police d'écriture */
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar { 
+    width: 8px; 
+    height: 8px; 
+}
+::-webkit-scrollbar-track { 
+    background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb { 
+    background: #cbd5e1; 
+    border-radius: 4px; 
+}
+::-webkit-scrollbar-thumb:hover { 
+    background: #94a3b8; 
+}
+
+.font-handwriting { 
+    font-family: 'Kalam', cursive; 
+}
+
+/* Animations */
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+.animate-fade-in { 
+    animation: fadeIn 0.5s ease-out forwards; 
+}
+
+/* Styles pour l'impression */
+@media print {
+    body { 
+        -webkit-print-color-adjust: exact; 
+        print-color-adjust: exact; 
+        background-color: white !important;
+    }
+    .print-hidden { 
+        display: none !important; 
+    }
+    .print-block { 
+        display: block !important; 
+    }
+    .no-break { 
+        break-inside: avoid; 
+    }
+    ::-webkit-scrollbar { 
+        display: none; 
+    }
+    
+    /* Force les couleurs de fond pour les tableaux Popsy */
+    .bg-yellow-100 { background-color: #fef9c3 !important; }
+    .bg-yellow-200 { background-color: #fef08a !important; }
+    .bg-orange-100 { background-color: #ffedd5 !important; }
+    .bg-blue-50 { background-color: #eff6ff !important; }
+    .bg-slate-800 { color: black !important; background-color: transparent !important; border: 1px solid black; }
+    .text-white { color: black !important; }
+}
