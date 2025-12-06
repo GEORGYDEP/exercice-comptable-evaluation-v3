@@ -116,28 +116,50 @@ const shuffleArray = (array: LevelData[]) => {
     return newArr;
 };
 
+// Fonction pour normaliser les montants (enlever espaces, points, virgules pour comparaison)
+const normalizeAmount = (amount: string): string => {
+    if (!amount) return "";
+    // Enlever tous les espaces, points et virgules
+    // Pour pouvoir comparer 25000, 25.000, 25,000, 25 000, etc.
+    return amount.replace(/[\s.,]/g, '');
+};
+
 const calculateLineScore = (userLine: JournalRow, solLine: JournalRow) => {
     let points = 0;
-    let maxPoints = 2; // Default
-    
-    const hasDecl = !!solLine.declTva;
-    const hasCode = !!solLine.codePopsy;
-    
-    if (hasDecl && hasCode) maxPoints = 4;
-    else if (hasDecl && !hasCode) maxPoints = 3;
-    else maxPoints = 2;
+    let maxPoints = 0;
 
+    // Compter le nombre de champs attendus (non vides dans la solution)
+    // 1. Compte comptable (toujours attendu)
+    maxPoints++;
     if (userLine.accountNumber === solLine.accountNumber) points++;
-    if (hasDecl && userLine.declTva === solLine.declTva) points++;
-    if (hasCode && userLine.codePopsy === solLine.codePopsy) points++;
-    
-    const userDebit = userLine.debit || "";
-    const userCredit = userLine.credit || "";
-    const solDebit = solLine.debit || "";
-    const solCredit = solLine.credit || "";
-    
-    if (solDebit && userDebit === solDebit && !userCredit) points++;
-    else if (solCredit && userCredit === solCredit && !userDebit) points++;
+
+    // 2. DECL TVA (si présent dans la solution)
+    const hasDecl = !!solLine.declTva;
+    if (hasDecl) {
+        maxPoints++;
+        if (userLine.declTva === solLine.declTva) points++;
+    }
+
+    // 3. CODE POPSY (si présent dans la solution)
+    const hasCode = !!solLine.codePopsy;
+    if (hasCode) {
+        maxPoints++;
+        if (userLine.codePopsy === solLine.codePopsy) points++;
+    }
+
+    // 4. Montant (débit OU crédit - toujours attendu)
+    maxPoints++;
+    const userDebit = normalizeAmount(userLine.debit || "");
+    const userCredit = normalizeAmount(userLine.credit || "");
+    const solDebit = normalizeAmount(solLine.debit || "");
+    const solCredit = normalizeAmount(solLine.credit || "");
+
+    // Vérifier si le montant est correct (débit ou crédit)
+    if (solDebit && userDebit === solDebit) {
+        points++;
+    } else if (solCredit && userCredit === solCredit) {
+        points++;
+    }
 
     return { points, maxPoints };
 };
