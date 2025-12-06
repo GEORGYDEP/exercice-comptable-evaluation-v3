@@ -81,44 +81,44 @@ export const DECLARATION_TVA = {
 
 export const CODES_POPSY = {
   achats: [
-    { code: "6CM", tva: "6%", label: "Marchandises Cocontractant" },
-    { code: "6CS", tva: "6%", label: "Services Cocontractant" },
-    { code: "6CV", tva: "6%", label: "Investissements Cocontractant" },
-    { code: "6IM", tva: "6%", label: "Marchandises Intracommunautaires" },
-    { code: "6IS", tva: "6%", label: "Services Intracommunautaires" },
-    { code: "6IV", tva: "6%", label: "Investissements Intracommunautaires" },
-    { code: "6M", tva: "6%", label: "Marchandises" },
-    { code: "6S", tva: "6%", label: "Services" },
-    { code: "6V", tva: "6%", label: "Investissements" },
-    { code: "6XM", tva: "6%", label: "Marchandises Importations" },
-    { code: "6XS", tva: "6%", label: "Services Importations" },
-    { code: "6XV", tva: "6%", label: "Investissements Importations" },
-    { code: "21CM", tva: "21%", label: "Marchandises Cocontractant" },
-    { code: "21CS", tva: "21%", label: "Services Cocontractant" },
-    { code: "21CV", tva: "21%", label: "Investissements Cocontractant" },
-    { code: "21IM", tva: "21%", label: "Marchandises Intracommunautaires" },
-    { code: "21IS", tva: "21%", label: "Services Intracommunautaires" },
-    { code: "21IV", tva: "21%", label: "Investissements Intracommunautaires" },
-    { code: "21M", tva: "21%", label: "Marchandises - 60" },
-    { code: "21S", tva: "21%", label: "Services - 61" },
-    { code: "21V", tva: "21%", label: "Investissements - 2" },
-    { code: "21XM", tva: "21%", label: "Marchandises Importations" },
-    { code: "21XS", tva: "21%", label: "Services Importations" },
-    { code: "21XV", tva: "21%", label: "Investissements Importations" }
+    { code: "6CM", tva: "TVA 6%", label: "Marchandises Cocontractant" },
+    { code: "6CS", tva: "TVA 6%", label: "Services Cocontractant" },
+    { code: "6CV", tva: "TVA 6%", label: "Investissements Cocontractant" },
+    { code: "6IM", tva: "TVA 6%", label: "Marchandises Intracommunautaires" },
+    { code: "6IS", tva: "TVA 6%", label: "Services Intracommunautaires" },
+    { code: "6IV", tva: "TVA 6%", label: "Investissements Intracommunautaires" },
+    { code: "6M", tva: "TVA 6%", label: "Marchandises" },
+    { code: "6S", tva: "TVA 6%", label: "Services" },
+    { code: "6V", tva: "TVA 6%", label: "Investissements" },
+    { code: "6XM", tva: "TVA 6%", label: "Marchandises Importations" },
+    { code: "6XS", tva: "TVA 6%", label: "Services Importations" },
+    { code: "6XV", tva: "TVA 6%", label: "Investissements Importations" },
+    { code: "21CM", tva: "TVA 21%", label: "Marchandises Cocontractant" },
+    { code: "21CS", tva: "TVA 21%", label: "Services Cocontractant" },
+    { code: "21CV", tva: "TVA 21%", label: "Investissements Cocontractant" },
+    { code: "21IM", tva: "TVA 21%", label: "Marchandises Intracommunautaires" },
+    { code: "21IS", tva: "TVA 21%", label: "Services Intracommunautaires" },
+    { code: "21IV", tva: "TVA 21%", label: "Investissements Intracommunautaires" },
+    { code: "21M", tva: "TVA 21%", label: "Marchandises - 60" },
+    { code: "21S", tva: "TVA 21%", label: "Services - 61" },
+    { code: "21V", tva: "TVA 21%", label: "Investissements - 2" },
+    { code: "21XM", tva: "TVA 21%", label: "Marchandises Importations" },
+    { code: "21XS", tva: "TVA 21%", label: "Services Importations" },
+    { code: "21XV", tva: "TVA 21%", label: "Investissements Importations" }
   ],
   ventes: [
-    { code: "0", tva: "0%", label: "TVA 0%" },
-    { code: "6", tva: "6%", label: "TVA 6%" },
-    { code: "12", tva: "12%", label: "TVA 12%" },
-    { code: "21", tva: "21%", label: "TVA 21%" },
-    { code: "C0", tva: "0%", label: "TVA 0% Cocontractant" },
-    { code: "EX", tva: "", label: "Exonéré" },
-    { code: "I0", tva: "0%", label: "TVA 0% Intracommunautaire" },
-    { code: "X0", tva: "0%", label: "TVA 0% Exportations" }
+    { code: "0", tva: "TVA 0%", label: "" },
+    { code: "6", tva: "TVA 6%", label: "" },
+    { code: "12", tva: "TVA 12%", label: "" },
+    { code: "21", tva: "TVA 21%", label: "" },
+    { code: "C0", tva: "TVA 0% Cocontractant", label: "" },
+    { code: "EX", tva: "Exonéré", label: "" },
+    { code: "I0", tva: "TVA 0% Intracommunautaire", label: "" },
+    { code: "X0", tva: "TVA 0% Exportations", label: "" }
   ],
   divers: [
-    { code: "21ND", label: "TVA SUR FRAIS DE VOITURE (50% TVA RECUP) = sbd (case 82 décl tva)" },
-    { code: "EX", label: "Pour les loyers, timbres, taxes, assurances et emballages consignés" }
+    { code: "EX", label: "Pour les loyers, timbres, taxes, assurances et emballages consignés TVA SUR FRAIS DE VOITURE" },
+    { code: "21ND", label: "TVA 21% (50% TVA RECUP) = sbd (case 82 décl tva)" }
   ]
 };
 
