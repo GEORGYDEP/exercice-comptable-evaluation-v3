@@ -53,52 +53,21 @@ interface FinalReportProps {
 }
 
 const FinalReport: React.FC<FinalReportProps> = ({ userEmail, scores, levels, onPrint, onRestart }) => {
-    const totalObtained = Object.values(scores).reduce((sum, s) => sum + s.obtained, 0);
-    const totalPossible = Object.values(scores).reduce((sum, s) => sum + s.possible, 0);
-    const percentage = totalPossible > 0 ? Math.round((totalObtained / totalPossible) * 100) : 0;
-
     return (
         <div className="min-h-screen bg-slate-100 p-8 flex flex-col items-center animate-in fade-in duration-500 print:bg-white print:p-0">
             <div className="bg-white p-8 rounded-xl shadow-xl max-w-4xl w-full print:shadow-none print:p-0">
                 <div className="text-center mb-8 border-b pb-6 print:mb-4 print:pb-2">
-                    <h1 className="text-3xl font-bold text-slate-800">Résultat Final</h1>
+                    <h1 className="text-3xl font-bold text-slate-800">Exercices Terminés</h1>
                     <p className="text-slate-600 mt-2">Élève : {userEmail}</p>
                 </div>
                 <div className="flex justify-center mb-8 print:mb-4">
-                    <div className="bg-slate-800 text-white p-6 rounded-lg text-center shadow-lg w-64 print:bg-white print:text-black print:border print:border-black print:shadow-none">
-                        <span className="block text-sm uppercase tracking-wider opacity-80">Total Global</span>
-                        <span className="block text-4xl font-bold text-yellow-400 print:text-black">{totalObtained} / {totalPossible}</span>
-                        <span className="block text-lg mt-1 font-mono">{percentage}%</span>
+                    <div className="bg-slate-800 text-white p-8 rounded-lg text-center shadow-lg print:bg-white print:text-black print:border print:border-black print:shadow-none">
+                        <CheckCircle size={64} className="mx-auto mb-4 text-green-400 print:text-black" />
+                        <span className="block text-2xl font-bold">Tous les exercices ont été complétés</span>
+                        <span className="block text-sm mt-2 opacity-80">Merci d'avoir participé</span>
                     </div>
                 </div>
-                <div className="overflow-x-auto">
-                    <table className="w-full text-sm border-collapse border border-gray-200">
-                        <thead className="bg-slate-50 print:bg-gray-100">
-                            <tr>
-                                <th className="border p-3 text-left">Exercice</th>
-                                <th className="border p-3 text-center">Points Obtenus</th>
-                                <th className="border p-3 text-center">Points Possibles</th>
-                                <th className="border p-3 text-center">%</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {levels.map((level, i) => {
-                                const s = scores[level.id] || { obtained: 0, possible: 0 };
-                                const p = s.possible > 0 ? Math.round((s.obtained / s.possible) * 100) : 0;
-                                return (
-                                    <tr key={level.id} className="border-b hover:bg-slate-50 break-inside-avoid">
-                                        <td className="border p-3 font-medium">Ex {i+1}: {level.title}</td>
-                                        <td className="border p-3 text-center font-bold text-slate-700">{s.obtained}</td>
-                                        <td className="border p-3 text-center text-slate-500">{s.possible}</td>
-                                        <td className={`border p-3 text-center font-bold ${p < 50 ? 'text-red-500' : 'text-green-600'}`}>{p}%</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </div>
                 <div className="mt-8 text-center print:hidden flex justify-center gap-4">
-                    <button onClick={onPrint} className="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 flex items-center justify-center gap-2 transition-colors shadow-lg"><Printer size={20}/> Imprimer le rapport</button>
                     <button onClick={onRestart} className="bg-slate-700 text-white px-6 py-3 rounded-lg font-bold hover:bg-slate-800 flex items-center justify-center gap-2 transition-colors shadow-lg"><RotateCcw size={20}/> Rejouer</button>
                 </div>
             </div>
@@ -297,12 +266,6 @@ const App: React.FC = () => {
           </div>
 
           <div className="lg:w-1/2">
-            {isLevelValidated && currentScore && (
-                <div className="bg-slate-800 text-white p-4 rounded-lg mb-6 flex justify-between items-center shadow-lg animate-in slide-in-from-top-4">
-                    <span className="font-bold text-lg flex items-center gap-2"><Trophy className="text-yellow-400"/> Score Exercice :</span>
-                    <span className="text-2xl font-bold text-yellow-400">{currentScore.obtained} / {currentScore.possible} points</span>
-                </div>
-            )}
             <div className="space-y-8">
               {currentLevel.requiredJournals.map((journalTemplate, idx) => (
                 <JournalTable
