@@ -65,38 +65,90 @@ export const PlanComptableModal: React.FC<{ onClose: () => void }> = ({ onClose 
 };
 
 export const DeclarationTvaModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const renderBox = (code: string, label: string) => (
-    <div key={code} className="flex border-b border-gray-200 last:border-0">
-      <div className="w-16 bg-gray-100 p-2 font-bold text-center border-r border-gray-200 flex items-center justify-center">
-        {code}
-      </div>
-      <div className="p-2 flex-grow text-sm flex items-center">{label}</div>
-    </div>
-  );
-
-  const renderSection = (title: string, items: {code: string, label: string}[], color: string) => (
-    <div className={`border-2 ${color} rounded-lg mb-6 overflow-hidden`}>
-      <div className={`${color.replace('border-', 'bg-')}-100 p-2 font-bold text-center border-b ${color}`}>
-        {title}
-      </div>
-      <div className="bg-white">
-        {items.map(item => renderBox(item.code, item.label))}
-      </div>
-    </div>
-  );
-
   return (
-    <Modal title="Structure de la Déclaration TVA" onClose={onClose}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <Modal title="Codes TVA" onClose={onClose}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        {/* ACHATS */}
         <div>
-          {renderSection("CADRE II : Opérations à la sortie", DECLARATION_TVA.cadreII, "border-blue-500")}
-          {renderSection("CADRE III : Opérations à l'entrée", DECLARATION_TVA.cadreIII, "border-green-500")}
+          <h3 className="font-bold text-lg mb-4 text-center bg-blue-100 p-3 rounded-lg border-2 border-blue-300">
+            Achats et Notes de Crédit sur Achats
+          </h3>
+          <table className="w-full text-sm border-collapse border-2 border-gray-300">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="border border-gray-300 p-2 text-center font-bold">Code</th>
+                <th className="border border-gray-300 p-2 text-center font-bold">TVA</th>
+                <th className="border border-gray-300 p-2 text-left font-bold">Libellé</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CODES_POPSY.achats.map((item, idx) => {
+                const isHighlighted = ['21M', '21S', '21V'].includes(item.code);
+                return (
+                  <tr key={idx} className={isHighlighted ? 'bg-red-50' : 'hover:bg-gray-50'}>
+                    <td className={`border border-gray-300 p-2 text-center font-bold ${isHighlighted ? 'text-red-600' : ''}`}>
+                      {item.code}
+                    </td>
+                    <td className={`border border-gray-300 p-2 text-center ${isHighlighted ? 'text-red-600 font-semibold' : ''}`}>
+                      {item.tva}
+                    </td>
+                    <td className={`border border-gray-300 p-2 ${isHighlighted ? 'text-red-600 font-semibold' : ''}`}>
+                      {item.label}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
+
+        {/* VENTES */}
         <div>
-          {renderSection("CADRE IV : Taxes Dues", DECLARATION_TVA.cadreIV, "border-red-500")}
-          {renderSection("CADRE V : Taxes Déductibles", DECLARATION_TVA.cadreV, "border-purple-500")}
-          {renderSection("CADRE VI : Solde", DECLARATION_TVA.cadreVI, "border-orange-500")}
+          <h3 className="font-bold text-lg mb-4 text-center bg-green-100 p-3 rounded-lg border-2 border-green-300">
+            Ventes et Notes de Crédit sur Ventes
+          </h3>
+          <table className="w-full text-sm border-collapse border-2 border-gray-300 mb-6">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="border border-gray-300 p-2 text-center font-bold">Code</th>
+                <th className="border border-gray-300 p-2 text-center font-bold">TVA</th>
+                <th className="border border-gray-300 p-2 text-left font-bold">Libellé</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CODES_POPSY.ventes.map((item, idx) => (
+                <tr key={idx} className="hover:bg-gray-50">
+                  <td className="border border-gray-300 p-2 text-center font-bold">
+                    {item.code}
+                  </td>
+                  <td className="border border-gray-300 p-2 text-center">
+                    {item.tva}
+                  </td>
+                  <td className="border border-gray-300 p-2">
+                    {item.label}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* DIVERS / NOTES */}
+          <div className="border-2 border-slate-800 p-4 rounded-lg bg-slate-50 shadow-sm">
+            <h4 className="font-bold mb-3 text-slate-800">Notes Importantes :</h4>
+            <ul className="space-y-2">
+              {CODES_POPSY.divers.map((item, idx) => (
+                <li key={idx} className="flex gap-3 items-start">
+                  <span className="font-bold bg-yellow-300 px-2 py-1 rounded text-xs whitespace-nowrap">
+                    {item.code}
+                  </span>
+                  <span className="text-sm text-slate-700">{item.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
+
       </div>
     </Modal>
   );
