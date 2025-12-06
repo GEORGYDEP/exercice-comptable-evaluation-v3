@@ -22,33 +22,6 @@ const EmptyRow = (id: string): JournalRow => ({
   credit: ''
 });
 
-// Scoring logic (duplicated from App for display purposes if needed, or passed down)
-// Here we just display what App passes, or calculate locally for display
-const calculateLineScore = (userLine: JournalRow, solLine: JournalRow) => {
-    let points = 0;
-    let maxPoints = 2; // Default (Account + Amount)
-    
-    const hasDecl = !!solLine.declTva;
-    const hasCode = !!solLine.codePopsy;
-    
-    if (hasDecl && hasCode) maxPoints = 4;
-    else if (hasDecl && !hasCode) maxPoints = 3;
-    else maxPoints = 2;
-
-    if (userLine.accountNumber === solLine.accountNumber) points++;
-    if (hasDecl && userLine.declTva === solLine.declTva) points++;
-    if (hasCode && userLine.codePopsy === solLine.codePopsy) points++;
-    
-    const userDebit = userLine.debit || "";
-    const userCredit = userLine.credit || "";
-    const solDebit = solLine.debit || "";
-    const solCredit = solLine.credit || "";
-    
-    if (solDebit && userDebit === solDebit && !userCredit) points++;
-    else if (solCredit && userCredit === solCredit && !userDebit) points++;
-
-    return { points, maxPoints };
-};
 
 export const JournalTable: React.FC<JournalTableProps> = ({ 
   type, 
@@ -99,24 +72,8 @@ export const JournalTable: React.FC<JournalTableProps> = ({
   };
 
   const renderFeedbackRow = (rowIdx: number) => {
-      if (!validationState?.isValidated) return null;
-      const userRow = rows[rowIdx];
-      const solRow = solutionRows[rowIdx];
-      
-      if (!solRow) return null;
-
-      const score = calculateLineScore(userRow, solRow);
-      
-      return (
-          <tr className="bg-green-50 border-b-2 border-green-200 text-xs text-green-900 animate-in fade-in">
-              <td colSpan={7} className="p-2">
-                  <div className="flex justify-between items-center font-bold px-2">
-                      <span className="text-blue-700">Note: {score.points}/{score.maxPoints} pts</span>
-                      <span className="font-mono">Correction: {solRow.accountNumber} {solRow.declTva ? `| TVA:${solRow.declTva}` : ''} {solRow.codePopsy ? `| Code:${solRow.codePopsy}` : ''} | M: {solRow.debit || solRow.credit}</span>
-                  </div>
-              </td>
-          </tr>
-      );
+      // Corrections désactivées - ne plus afficher les bonnes réponses
+      return null;
   };
 
   return (
